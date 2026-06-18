@@ -1,3 +1,3 @@
-/bin
-/grt_boot/gstdobj
-/test files LLVM IR/executables
+./bin
+./grt_boot/gstdobj
+./test files LLVM IR/executables
