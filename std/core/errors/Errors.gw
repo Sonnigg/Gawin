@@ -1,0 +1,20 @@
+module std::core::errors
+module core::errors
+module std::errors
+module errors
+
+//@GRT-GW
+// The above comment makes this file auto included by the compiler; necessary.
+pub unsafe {
+    pub struct !!func Error[type T = default](val: T) -> !!T {
+        return !!T { .__data: val }
+    } // constructor of an error type defined as a struct func to bypass the naming convention of func
+    // also defined as a !!func to gain the !!Error syntax
+    // specifically makes an error with type T that is usually inferred
+
+    pub const struct func Definitely(!!type V) -> !!type {
+        return __xortype(!!V, V) // xors out the V part leaving only !!V
+    } // xor of types that only gives the error path defined as a struct func to bypass the naming convention of func
+    // also defined as const due to it modifying the active code where it is placed, thus being a macro
+    // specifically returns the error-path type only of an error type !!T
+}

@@ -1,0 +1,103 @@
+module std::math
+module math
+
+pub const _SQRT2: f128 := 1.4142135623730950488016887242096981
+
+pub func ilog2[type RT = default](l: RT) -> i32 {
+
+    x: f128 := l as f128
+
+    if x <= 0.0 {
+        panic("[ERROR] ilog2 requires a positive number.")
+    }
+
+    exp: i32 := 0
+
+    if x >= 1.0 {
+
+        while x >= 2.0 {
+            x /= 2.0
+            exp += 1
+        }
+
+    } else {
+
+        while x < 1.0 {
+            x *= 2.0
+            exp -= 1
+        }
+    }
+
+    return exp
+}
+
+pub func pow2[type RT = default](e: RT) -> f128 {
+
+    exponent: i32 := e as i32
+
+    if exponent == 0 {
+        return 1.0
+    }
+
+    result: f128 := 1.0
+    base: f128 := 2.0
+
+    neg: bool := exponent < 0
+
+    if neg {
+        exponent = -exponent
+    }
+
+    while exponent > 0 {
+
+        if exponent % 2 == 1 {
+            result *= base
+        }
+
+        base *= base
+        exponent /= 2
+    }
+
+    if neg {
+        return 1.0 / result
+    }
+
+    return result
+}
+
+pub func sqrt[type RT = default](arg: RT) -> f128 {
+
+    x: f128 := arg as f128
+
+    if x < 0.0 {
+        panic(
+            "[ERROR] Squareroot of a negative number is not supported in 'math', use 'cmath' for complex number arithmetic."
+        )
+    }
+
+    if x == 0.0 {
+        return 0.0
+    }
+
+    exponent: i32 := ilog2(x)
+
+    guess: f128 := if exponent % 2 == 0 {
+
+        pow2(exponent / 2)
+
+    } else {
+
+        _SQRT2 * pow2((exponent - 1) / 2)
+    }
+
+    prev: f128 := 0.0
+
+    while guess != prev {
+
+        prev = guess
+
+        guess = 0.5 * (guess + (x / guess))
+    }
+
+    return guess
+}

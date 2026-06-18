@@ -1,0 +1,56 @@
+module std::duo
+module duo
+
+pub struct Duo[type T1, type T2] {
+exposed mut: // exposed again means "only see-able in this module"
+    __first: T1
+    __second: T2
+}
+
+for static Duo[type T1, type T2] => {
+    pub func new(f: T1, s: T2) -> Duo[T1, T2] {
+        return Duo[T1, T2] { .__first: f, .__second: s }
+    } // called via Duo[T1, T2]::new(value1, value2) -> type explicitly given in Duo
+
+    pub func default() -> Duo[T1, T2] {
+        return Duo[T1, T2] { .__first: 0 as T1, .__second: 0 as T2 } // 0 as T means "The value of which is titled as 'empty' for T"
+            // 0 for any integer or float, none for ?T, "" for strings, zero-filled structs, etc.
+    } // called via Duo[T1, T2]::default()
+}
+
+for static Duo[default, default] => {
+    pub func new[type T1 = default, type T2 = default](f: T1, s: T2) -> Duo[T1, T2] {
+        return Duo[T1, T2] { .__first: f, .__second: s }
+    } // called via Duo::new(...) -> type inferred via parameters
+}
+
+for mut duo: Duo[type T1, type T2] => {
+    pub func to_str() -> str {
+        return "[$(duo.__first), $(duo.__second)]"
+    }
+
+    for /* mut */ thing: &T1, &T2 => {
+        pub func set_to(new_val: typeof(thing)) -> void {
+            *mut thing = new_val // mutably dereference the value since thing is a reference and references are immutable-only
+        } // thus you need to dereference it to a mutable variable/value to then change what the reference is seeing while keeping it strictly immutable
+
+    } // This has to be done one duo.(T1 or T2) to work, (T1 or T2) won't work alone
+    // called via duo.first().set_to(value) or duo.second().set_to(value)
+
+    pub func first() -> &T1 {
+        return &duo.__first
+    }
+
+    pub func second() -> &T2 {
+        return &duo.__second
+    }
+
+    pub func set_to(f: T1, s: T2) -> void {
+        duo.__first = f
+        duo.__second = s
+    }
+
+    pub func swapped() -> Duo[T2, T1] {
+        return Duo::new(duo.__second, duo.__first)
+    }
+}

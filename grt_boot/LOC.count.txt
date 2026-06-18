@@ -1,0 +1,30 @@
+root = $USER\grt_boot
+
+WS (whitespace) included for all
+
+root\grtdef\grtdef.h        16
+root\grtdef\grtheap.c       212
+root\grtdef\grtheap.h       63
+root\grtdef\grtmax.h        6
+root\grtdef\grtnil.h        7
+
+root\grtio\grthelpio.h      33
+root\grtio\grtio.c          1007
+root\grtio\grtio.h          91
+
+root\grtmem\grthelpmem.h    15
+root\grtmem\grtmem.c        478
+root\grtmem\grtmem.h        30
+
+root\grtstr\grthelpstr.h    15
+root\grtstr\grtstr.c        385
+root\grtstr\grtstr.h        47
+
+root\gstdobj\*.o            VARIABLE LINE AMOUNT, OBJECT FILE INCLUDED VIA GRT OR GSTD
+
+root\win32\utf16.c          62
+
+root\grt.c                  95
+root\grt.h                  39
+
+TOTAL                       2601

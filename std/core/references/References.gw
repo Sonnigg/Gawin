@@ -1,0 +1,16 @@
+module std::core::references
+module core::references
+module std::references
+module references
+
+//@GRT-GW
+
+for ref: &type T => {
+    pub func value() -> T {
+        return *ref
+    }
+
+    pub func val() -> T {
+        return *ref
+    }
+}

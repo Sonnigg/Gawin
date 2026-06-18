@@ -1,0 +1,20 @@
+module std::core::optionals
+module core::optionals
+module std::optionals
+module optionals
+
+//@GRT-GW
+
+for opt: ?type T => {
+    pub func is_none() -> bool {
+        return opt == none
+    }
+
+    pub func not_none() -> bool {
+        return opt != none
+    }
+
+    pub func unpack() -> T, Definitely(!!str) {
+        return if opt.not_none() { opt } else { !!Error("Unpacking is impossible! Value is none.") }
+    }
+}

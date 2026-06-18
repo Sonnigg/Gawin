@@ -1,0 +1,120 @@
+module std::core::vector
+module core::vector
+module std::vector
+module vector
+
+//@GRT-GW
+
+pub unsafe {
+    pub struct Vector[type T] {
+    exposed mut:
+        data: ptr[T]
+        len : usize
+        cap : usize
+    }
+}
+
+const #INITIAL_CAPACITY: u16 = 256 // this is internal
+
+for static Vector[type T] => {
+    pub unsafe {
+        pub func new() -> Vector[T], Definitely(!!str) {
+            ptr := malloc(sizeof(T) * #INITIAL_CAPACITY) else {
+                return !!Error("[ERROR]: Not enough memory available for allocation (Vector::new() allocation failure malloc).")
+            }
+
+            return Vector[T] {
+                data: ptr
+                len : 0
+                cap : #INITIAL_CAPACITY as usize
+            }
+        }
+
+        pub func drop(inst: Vector[T]) -> void {
+            free(inst.data)
+            inst.len = 0
+            inst.cap = 0
+        }
+    }
+}
+
+for vec: Vector[type T] => {
+    pub unsafe {
+        pub func push_back(value: T) -> void, Definitely(!!str) {
+            if vec.len == vec.cap {
+                new_cap := (vec.cap * 1.5) as usize
+
+                new_ptr := realloc(
+                    vec.data,
+                    sizeof(T) * new_cap
+                ) else {
+                    return !!Error("[ERROR]: Not enough memory available for reallocation (vec.push_back(T) reallocation failure realloc).")
+                }
+
+                vec.data = new_ptr  // move
+                vec.cap = new_cap   // move
+            }
+
+            vec.data[vec.len] = value
+            vec.len += 1
+        }
+
+        pub func clone() -> Vector[T], Definitely(!!str) {
+            new_cap := vec.cap
+            new_len := vec.len
+            new_size := sizeof(T) * new_cap
+            
+            new_data := malloc(new_size) else {
+                return !!Error("[ERROR]: Not enough memory available for allocation (vec.clone() allocation failure malloc).")
+            }
+
+            mut current_data := new_data
+
+            // Loop through the existing elements and deeply clone each one
+            for i := 0; i < new_len; i += 1 {
+                // Assuming T has its own .clone() method defined
+                current_data[i] = vec.data[i].clone()
+            }
+
+            return Vector[T] {
+                data: new_data
+                len : new_len
+                cap : new_cap
+            }
+        }
+    }
+
+    pub func at(idx: usize) -> T {
+        if idx >= vec.len {
+            eprintln("Given index surpasses the length of the vector, safe wrap-around (idx % vec.len) is used nonetheless.")
+        }
+        return vec.data[idx % vec.len]
+    }
+
+    pub func slice(start: usize, end: ?usize) -> []T, Definitely(!!str) {
+        new_end := end.unpack() else { vec.len - 1 }
+        if start >= vec.len || new_end >= vec.len {
+            return
+            !!Error("[ERROR]: start (parameter 1) or end (parameter 2) of function '(vec: Vector[type T]).slice(start, end)' exceeds the length of the vector (vec.slice(usize, ?usize) parameter exceeding max length).")
+        }
+        
+        // 1. Calculate length and total byte size
+        slice_len := new_end - start + 1
+        new_size := sizeof(T) * slice_len
+        
+        // 2. Allocate the exact memory needed
+        new_slice := malloc(new_size) as []T else {
+            return !!Error("[ERROR]: Not enough memory available for slice allocation (vec.slice(usize, ?usize) allocation failure malloc).")
+        }
+        
+        // 3. Populate using a local relative index
+        mut slice_idx: usize = 0
+        for idx := start, idx <= new_end, idx++ {
+            new_slice[slice_idx] = vec.data[idx]
+            slice_idx++
+        }
+        
+        return new_slice
+    }
+
+}
