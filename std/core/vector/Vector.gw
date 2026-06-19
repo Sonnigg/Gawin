@@ -114,5 +114,21 @@ for vec: Vector[type T] => {
         
         return new_slice
     }
+    
+    pub func length() -> usize {
+        return vec.len
+    }
+
+    pub func len() -> usize {
+        return vec.len
+    }
+
+    pub func capacity() -> usize {
+        return vec.cap
+    }
+
+    pub func cap() -> usize {
+        return vec.cap
+    }
 
 }
