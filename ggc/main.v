@@ -149,7 +149,7 @@ fn main() {
 					}
 				}
 
-				`W`, `w` {
+				`W` {
 					if a.len <= 2 {
 						helper_for_matching_flags_with_w(os.args[idx+1], mut opts)
 						flag_marked = true
