@@ -93,7 +93,7 @@ If the `gwin` command is not recognized after installation, follow these recover
 ### Short-Form Checklist
 1. **Linux/macOS:** Ensure the `bin` path is added to your `~/.bashrc` or `~/.zshrc`.
 2. **Environment:** Restart your terminal (fully close and re-open all IDE/terminal applications).
-3. **Reinstall:** Freshly download the toolchain from the official [Gawin website](https://).
+3. **Reinstall:** Freshly download the toolchain from the GitHub repository.
 4. **Integrity:** Ensure no local source files or configurations were manually altered.
 
 ### Long-Form Details
