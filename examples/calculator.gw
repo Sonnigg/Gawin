@@ -51,7 +51,7 @@ func basecalc() -> void {
                     }
                 }
             }
-        }
+        } // accumulates the expressions in the for loop (here s)
         match new_string[idx_op] {
             u8("+") {
                 res := new_string.substr(0, idx_op).to_int() + new_string.substr(idx_op+1, -1).to_int()

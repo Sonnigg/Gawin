@@ -1,7 +1,5 @@
 module std::core::references
 module core::references
-module std::references
-module references
 
 //@GRT-GW
 

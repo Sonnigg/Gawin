@@ -1,5 +1,7 @@
 std/
     core/
+        chars/
+            Chars.gw
         errors/
             Errors.gw
         optionals/

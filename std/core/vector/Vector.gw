@@ -1,7 +1,5 @@
 module std::core::vector
 module core::vector
-module std::vector
-module vector
 
 //@GRT-GW
 

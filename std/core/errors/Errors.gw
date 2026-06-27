@@ -1,7 +1,5 @@
 module std::core::errors
 module core::errors
-module std::errors
-module errors
 
 //@GRT-GW
 // The above comment makes this file auto included by the compiler; necessary.

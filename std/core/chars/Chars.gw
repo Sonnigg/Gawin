@@ -1,0 +1,40 @@
+module std::core::chars
+module core::chars
+
+for c: u8, u16 => {
+    pub func is_digit() -> bool {
+        return c in r"0123456789"
+    }
+
+    pub func is_operator() -> bool {
+        return c in r"+-/*%^<>"
+    }
+
+    pub func is_alpha() -> bool {
+        return c in r"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    }
+
+    pub func is_alnum() -> bool {
+        return c.is_digit() || c.is_alpha()
+    }
+
+    pub func is_ascii() -> bool {
+        return const if typeof(c) == u8 {
+            true
+        } const else {
+            false
+        }
+    }
+
+    pub func is_unic() -> bool {
+        return const if typeof(c) == u16 {
+            true
+        } const else {
+            false
+        }
+    }
+
+    pub func to_str() -> str {
+        return "$(c)"
+    }
+}

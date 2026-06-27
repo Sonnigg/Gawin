@@ -1,8 +1,5 @@
 module std::core::optionals
 module core::optionals
-module std::optionals
-module optionals
-
 //@GRT-GW
 
 for opt: ?type T => {
