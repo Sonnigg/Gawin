@@ -5,7 +5,7 @@ module errors
 
 //@GRT-GW
 // The above comment makes this file auto included by the compiler; necessary.
-pub unsafe {
+pub unsafe { // not necessary, just done to signal to readers that the code below is not user-land
     pub struct !!func Error[type T = default](val: T) -> !!T {
         return !!T { .__data: val }
     } // constructor of an error type defined as a struct func to bypass the naming convention of func
