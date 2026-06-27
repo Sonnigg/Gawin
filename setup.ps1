@@ -332,7 +332,7 @@ function Invoke-SecurityAudit {
     if ($writablePathsInsecure.Count -gt 0) {
         Write-Log WARN "Insecure/Writable directory targets referenced inside path routes: $writablePathsInsecure"
     } else {
-        Write-Log SECURE "Environment variable structural ordering clean. No hijacking vector vectors discovered."
+        Write-Log SECURE "Environment variable structural ordering clean. No hijacking vectors discovered."
     }
 
     # 3. Target Directory Workspace Write Permissions
