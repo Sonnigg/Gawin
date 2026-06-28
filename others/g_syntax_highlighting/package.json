@@ -1,0 +1,69 @@
+{
+  "name": "gawin-syntax-highlighting",
+  "displayName": "Gawin Syntax Highlighting",
+  "description": "Syntax highlighting, snippets, and file icon support for Gawin language files (.g, .gawin, .gwin, .gw and g.mod).",
+  "version": "0.0.1",
+  "publisher": "Gawin Programming Language",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "scripts": {
+    "package": "npx vsce package"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.0.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Snippets"
+  ],
+  "icon": "g_logo.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "gawin",
+        "aliases": ["Gawin", "G", "gawin", "g"],
+        "extensions": [".g", ".gw"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "g_logo_ext.png",
+          "light": "g_logo_ext.png"
+        }
+      },
+      {
+        "id": "mawin",
+        "aliases": ["Mawin", "M", "mawin", "m"],
+        "extensions": [".gawin", ".gwin"],
+        "filenames": ["g.mod", "GVERSION", "GERSION"],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "dark": "g_meta_ext.png",
+          "light": "g_meta_ext.png"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gawin",
+        "scopeName": "source.gawin",
+        "path": "./syntaxes/g.tmLanguage.json"
+      },
+      {
+        "language": "mawin",
+        "scopeName": "source.mawin",
+        "path": "./syntaxes/m.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "gawin",
+        "path": "./snippets/g.json"
+      },
+      {
+        "language": "mawin",
+        "path": "./snippets/m.json"
+      }
+    ]
+  },
+  "repository": {}
+}
