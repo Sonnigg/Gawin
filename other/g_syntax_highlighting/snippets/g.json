@@ -1,0 +1,86 @@
+{
+  "Function": {
+    "prefix": "func",
+    "body": [
+      "func ${1:name}(${2:args})${3: -> ${4:return_type}} {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert a Gawin function declaration."
+  },
+  "If Statement": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert an if statement."
+  },
+  "If/Else Statement": {
+    "prefix": "ifelse",
+    "body": [
+      "if ${1:condition} {",
+      "  $2",
+      "} else {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert an if/else block."
+  },
+  "Match Statement": {
+    "prefix": "match",
+    "body": [
+      "match ${1:expression} {",
+      "  ${2:case1} {",
+      "    $0",
+      "  }",
+      "}"
+    ],
+    "description": "Insert a match expression."
+  },
+  "Struct": {
+    "prefix": "struct",
+    "body": [
+      "struct ${1:Name} {",
+      "  ${2:field}: ${3:type}",
+      "}"
+    ],
+    "description": "Insert a struct definition."
+  },
+  "Enum": {
+    "prefix": "enum",
+    "body": [
+      "enum ${1:Name} {",
+      "  ${2:item}",
+      "}"
+    ],
+    "description": "Insert an enum definition."
+  },
+  "Module": {
+    "prefix": "module",
+    "body": [
+      "module ${1:name}",
+      "",
+      "$0"
+    ],
+    "description": "Insert a module declaration."
+  },
+  "Import": {
+    "prefix": "import",
+    "body": [
+      "import ${1:module}",
+      "$0"
+    ],
+    "description": "Insert an import statement."
+  },
+  "While Loop": {
+    "prefix": "while",
+    "body": [
+      "while ${1:condition} {",
+      "  $0",
+      "}"
+    ],
+    "description": "Insert a while loop."
+  }
+}

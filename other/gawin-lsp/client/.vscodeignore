@@ -1,0 +1,8 @@
+node_modules/**
+**/.git/**
+**/.DS_Store
+**/*.ts
+**/server_out/**/*.ts
+**/server_out/**/*.map
+**/client/.gitignore
+**/package-lock.json

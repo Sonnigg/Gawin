@@ -1,0 +1,88 @@
+{
+  "name": "gawin-vscode",
+  "displayName": "Gawin",
+  "publisher": "gawin",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gawin/gawin-lsp"
+  },
+  "engines": { "vscode": "^1.60.0" },
+  "main": "out/extension.js",
+  "activationEvents": ["onLanguage:gawin","onLanguage:mawin"],
+  "icon": "g_logo.png",
+  "contributes": {
+    "languages": [
+      {
+        "id": "gawin",
+        "aliases": ["Gawin","G","gawin","g"],
+        "extensions": [".g",".gw"],
+        "configuration": "./language-configuration.json",
+        "icon": { "dark": "g_logo_ext.png", "light": "g_logo_ext.png" }
+      }
+      ,
+      {
+        "id": "mawin",
+        "aliases": ["Mawin","M","mawin","m"],
+        "extensions": [".gawin",".gwin"],
+        "filenames": ["g.mod"],
+        "configuration": "./language-configuration.json",
+        "icon": { "dark": "g_meta_ext.png", "light": "g_meta_ext.png" }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "gawin",
+        "scopeName": "source.gawin",
+        "path": "./syntaxes/g.tmLanguage.json"
+      }
+      ,
+      {
+        "language": "mawin",
+        "scopeName": "source.mawin",
+        "path": "./syntaxes/m.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      { "language": "gawin", "path": "./snippets/g.json" },
+      { "language": "mawin", "path": "./snippets/m.json" }
+    ],
+    "semanticTokenScopes": [
+      {
+        "language": "gawin",
+        "scopes": {
+          "keyword": ["keyword.control.gawin"],
+          "type": ["storage.type.gawin"],
+          "variable": ["variable.other.gawin"],
+          "function": ["entity.name.function.gawin"]
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run build",
+    "build": "tsc -p . && npx cpx \"../server/out/**\" server_out -C"
+  },
+  "files": [
+    "out/**",
+    "server_out/**",
+    "syntaxes/**",
+    "snippets/**",
+    "g_logo.png",
+    "g_logo_ext.png",
+    "g_meta_ext.png",
+    "LICENSE",
+    "README.md",
+    "language-configuration.json",
+    "package.json",
+    "README.md"
+  ],
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/vscode": "^1.60.0"
+  },
+  "dependencies": {
+    "vscode-languageclient": "^8.0.0"
+  }
+}

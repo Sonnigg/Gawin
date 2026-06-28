@@ -1,0 +1,41 @@
+/* Copied from repository g_syntax_highlighting to bundle with extension */
+{
+  "comments": {
+    "lineComment": {
+      "comment": "//"
+    },
+    "blockComment": ["/*", "*/"]
+  },
+  "brackets": [
+    ["{", "}"],
+    ["[", "]"],
+    ["(", ")"]
+  ],
+  "autoClosingPairs": [
+    {"open": "{", "close": "}", "notIn": ["comment", "string"] },
+    { "open": "[", "close": "]", "notIn": ["comment", "string"] },
+    { "open": "(", "close": ")", "notIn": ["comment", "string"] },
+    { "open": "'", "close": "'", "notIn": ["comment", "string"] },
+    { "open": "\"", "close": "\"", "notIn": ["comment", "string"] },
+    { "open": "r\"", "close": "\"", "notIn": ["comment", "string"] },
+    { "open": "r'", "close": "'", "notIn": ["comment", "string"] }
+  ],
+  "surroundingPairs": [
+    { "open": "{", "close": "}", "notIn": ["comment", "string"] },
+    { "open": "[", "close": "]", "notIn": ["comment", "string"] },
+    { "open": "(", "close": ")", "notIn": ["comment", "string"] },
+    { "open": "'", "close": "'", "notIn": ["comment", "string"] },
+    { "open": "\"", "close": "\"", "notIn": ["comment", "string"] },
+    { "open": "r\"", "close": "\"", "notIn": ["comment", "string"] },
+    { "open": "r'", "close": "'", "notIn": ["comment", "string"] }
+  ],
+  "colorizedBracketPairs": [
+    ["(", ")"],
+    ["[", "]"],
+    ["{", "}"]
+  ],
+  "indentationRules": {
+    "increaseIndentPattern": "{",
+    "decreaseIndentPattern": "}"
+  }
+}

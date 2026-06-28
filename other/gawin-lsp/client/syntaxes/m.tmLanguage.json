@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/theme-defaults/syntaxes/grammar.schema.json",
+  "name": "Gawin",
+  "scopeName": "source.mawin",
+  "fileTypes": ["gawin", "gwin"],
+  "filenames": ["g.mod"],
+  "patterns": [
+    { "include": "#mawinkeys" },
+    { "include": "source.gawin" }
+  ],
+  "repository": {
+    "mawinkeys": {
+        "name": "storage.type.mawin",
+        "match": "\\b(version|dependencies|project|exclude)\\b"
+    }
+  }
+}

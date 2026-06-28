@@ -1,0 +1,213 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/main/extensions/theme-defaults/syntaxes/grammar.schema.json",
+  "name": "Gawin",
+  "scopeName": "source.gawin",
+  "fileTypes": ["g", "gw"],
+  "patterns": [
+    { "include": "#block-comment" },
+    { "include": "#line-comment" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords" },
+    { "include": "#types" },
+    { "include": "#constants" },
+    { "include": "#operators" },
+    { "include": "#identifiers" }
+  ],
+  "repository": {
+    "block-comment": {
+      "patterns": [
+        {
+          "name": "comment.block.gawin",
+          "begin": "/\\*",
+          "end": "\\*/",
+          "patterns": [
+            { "include": "#block-comment" }
+          ]
+        }
+      ]
+    },
+    "line-comment": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.gawin",
+          "match": "//.*"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.gawin",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "name": "constant.character.escape.gawin",
+              "match": "\\\\(x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|[0-7]{1,3}|[\"\\\\abfnrtv])"
+            },
+            {
+              "include": "#interpolation"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.single.gawin",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            {
+              "name": "constant.character.escape.gawin",
+              "match": "\\\\(x[0-9a-fA-F]{2}|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8}|[0-7]{1,3}|['\\\\abfnrtv])"
+            },
+            {
+              "include": "#interpolation"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.gawin",
+          "begin": "r\"",
+          "end": "\"",
+          "patterns": [
+            {
+              "include": "#interpolation"
+            }
+          ]
+        },
+        {
+          "name": "string.quoted.double.gawin",
+          "begin": "r'",
+          "end": "'",
+          "patterns": [
+            {
+              "include": "#interpolation"
+            }
+          ]
+        }
+      ]
+    },
+    "interpolation": {
+      "patterns": [
+        {
+          "name": "variable.parameter.gawin",
+          "begin": "\\$\\(",
+          "end": "\\)",
+          "patterns": [
+            { "include": "#comments" },
+            { "include": "#strings" },
+            { "include": "#numbers" },
+            { "include": "#keywords" },
+            { "include": "#types" },
+            { "include": "#constants" },
+            { "include": "#operators" },
+            { "include": "#identifiers" }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.gawin",
+          "match": "\\b0x[0-9A-Fa-f_]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.gawin",
+          "match": "\\b0b[01_]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.gawin",
+          "match": "\\b\\d+[.\\d]*([eE][+-]?\\d+)?\\b"
+        },
+        {
+          "name": "constant.numeric.integer.gawin",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.gawin",
+          "match": "\\b(if|else|for|in|match|return|break|continue|as|unsafe|default|goto|spawn|then|sizeof|typeof)\\b"
+        },
+        {
+          "name": "storage.modifier.gawin",
+          "match": "\\b(?:func|pub|public|exposed|enum|struct|variant|module|import|type|mut|const|panic|atomic|static)\\b"
+        }
+      ]
+    },
+    "types": {
+      "patterns": [
+        {
+          "name": "storage.type.gawin",
+          "match": "\\b(?:str|[iu](8|16)|[fiu](32|64)|f128|bool|(bool|b)(8|16|32)|void|usize|size)\\b|\\b(ptr|addrof|deref)\\b\\s*(?=\\[)"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.gawin",
+          "match": "\\b(?:true|false|none)\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.gawin",
+          "match": "==|!=|<=|>=|&&|\\|\\||->|=>|:=|\\+|\\-|\\*|\\/|%|\\^|=|<|>|\\?|!|\\.|::"
+        }
+      ]
+    },
+    "identifiers": {
+      "patterns": [
+        {
+          "name": "meta.import.gawin",
+          "begin": "(?<=\\b(?:module|import)\\s+)",
+          "end": "$",
+          "patterns": [
+            {
+              "match": "\\b[a-z_][a-z0-9_]*\\b(\\s+(?=\\()|(?=\\())",
+              "name": "entity.name.function.gawin"
+            },
+            {
+              "match": "\\b[A-Za-z][A-Za-z0-9]*\\b",
+              "name": "entity.name.type.gawin"
+            },
+            {
+              "match": "::",
+              "name": "punctuation.separator.namespace.gawin"
+            },
+            {
+              "match": "\\b[a-z_][a-z0-9_]*\\b",
+              "name": "variable.other.gawin"
+            },
+            {
+              "match": "\\b[A-Z_][A-Z0-9_]*\\b",
+              "name": "variable.parameter.gawin"
+            }
+          ]
+        },
+        {
+          "name": "entity.name.function.gawin",
+          "match": "(#?)\\b[a-z_][a-z0-9_]*\\b(\\s+(?=\\()|(?=\\())|(?<=\\bfunc\\b)\\s+(#?)\\b[a-z_][a-z0-9_]*\\b"
+        },
+        {
+          "name": "variable.other.gawin",
+          "match": "(#?)\\b[a-z_][a-z0-9_]*\\b"
+        },
+        {
+          "name": "entity.name.type.gawin",
+          "match": "(?<=(\\btype\\b\\s+|\\s*))(#?)\\b(?:[A-Z][A-Za-z0-9]*)\\b"
+        },
+        {
+          "name": "variable.parameter.gawin",
+          "match": "(?<=(\\bconst\\b\\s+|\\s*))(#?)\\b(?:[A-Z_][A-Z0-9_]*)\\b"
+        }
+      ]
+    }
+  }
+}
