@@ -1,9 +1,13 @@
 module std::math
 module math
 
+pub enum SmaxMode {
+  lambda_offset,
+}
+
 pub const _SQRT2: f128 := 1.4142135623730950488016887242096981
 
-pub func ilog2(l: f128) -> i32 {
+func ilog2(l: f128) -> i32 {
 
     x: f128 := l as f128
 
@@ -15,14 +19,14 @@ pub func ilog2(l: f128) -> i32 {
 
     if x >= 1.0 {
 
-        while x >= 2.0 {
+        for x >= 2.0 {
             x /= 2.0
             exp += 1
         }
 
     } else {
 
-        while x < 1.0 {
+        for x < 1.0 {
             x *= 2.0
             exp -= 1
         }
@@ -48,7 +52,7 @@ pub func pow2(e: f128) -> f128 {
         exponent = -exponent
     }
 
-    while exponent > 0 {
+    for exponent > 0 {
 
         if exponent % 2 == 1 {
             result *= base
@@ -91,7 +95,7 @@ pub func sqrt(arg: f128) -> f128 {
 
     prev: f128 := 0.0
 
-    while guess != prev {
+    for guess != prev {
 
         prev = guess
 
@@ -115,7 +119,7 @@ func ipow(base: f128, exp: i32) -> f128 {
         e = -e
     }
     
-    while e > 0 {
+    for e > 0 {
         if e % 2 == 1 {
             result *= b
         }
@@ -165,7 +169,7 @@ pub func root[const n: i32 = 2](arg: f128) -> f128 {
     max_iter: i32 := 128
 
     // 2. Newton-Raphson Iteration Core
-    while (guess != prev) && (max_iter > 0) {
+    for (guess != prev) && (max_iter > 0) {
         prev = guess
         
         // General formula calculation: guess = (1/n) * ((n-1)*guess + x/(guess^(n-1)))
@@ -176,4 +180,24 @@ pub func root[const n: i32 = 2](arg: f128) -> f128 {
     }
 
     return guess
+}
+
+// for contributors... l, r: f128, f128 is valid for parameters and is the same as l: f128, r: f128
+pub func max(l, r: f128, f128) -> f128 {
+    return if l >= r { l } else { r }
+}
+
+pub func min(l, r: f128, f128) -> f128 {
+    return if l <= r { l } else { r }
+}
+
+pub func abs(l: f128) -> f128 {
+    return if l <= 0 { -l } else { l }
+}
+
+pub func smax[const mode: SmaxMode = SmaxMode::lambda_offset, const offset: f128 = 0.08](x, y: f128, f128) -> f128 {
+    const match mode {
+        SmaxMode::lambda_offset then return (x + y - sqrt(pow2(x + y) + offset))/2
+        default {}
+    }
 }
